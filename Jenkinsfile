@@ -9,17 +9,17 @@ pipeline {
             steps {
                 sh 'python3 -m unittest discover || python test_app.py'
             }
-      stage('SonarQube Analysis') {
-        environment {
-            // The name here must match the tool name you set in the previous step
-            SCANNER_HOME = tool 'sonar-scanner'
         }
-        steps {
-            withSonarQubeEnv('sonarqube-server') {
-                sh "${SCANNER_HOME}/bin/sonar-scanner -Dsonar.projectKey=jarvis-repo -Dsonar.sources=."
+        stage('SonarQube Analysis') {
+            environment {
+                SCANNER_HOME = tool 'sonar-scanner'
+            }
+            steps {
+                withSonarQubeEnv('sonarqube-server') {
+                    sh "${SCANNER_HOME}/bin/sonar-scanner -Dsonar.projectKey=jarvis-repo -Dsonar.sources=."
+                }
             }
         }
-    }
         stage('Quality Gate') {
             steps {
                 timeout(time: 5, unit: 'MINUTES') {
