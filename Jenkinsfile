@@ -2,7 +2,7 @@ pipeline {
     agent any
     environment {
         DOCKERHUB_CREDS = credentials('dockerhub-cred')
-        IMAGE_NAME = "jarvis/simple-app:${env.BUILD_ID}"
+        IMAGE_NAME = "jarvis0912/simple-app:${env.BUILD_ID}"
     }
     stages {
         stage('Build & Test') {
